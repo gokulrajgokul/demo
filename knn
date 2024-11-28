@@ -1,0 +1,30 @@
+# Import necessary libraries
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data  # Features
+y = iris.target  # Labels
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Create and train the k-NN classifier
+k = 3  # Number of neighbors
+knn = KNeighborsClassifier(n_neighbors=k)
+knn.fit(X_train, y_train)
+
+# Make predictions
+y_pred = knn.predict(X_test)
+
+# Evaluate the classifier
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy of k-NN classifier: {accuracy:.2f}")
+
+# Test with new data
+new_data = [[5.0, 3.6, 1.4, 0.2]]  # Example input
+prediction = knn.predict(new_data)
+print(f"Prediction for new data {new_data}: {iris.target_names[prediction]}")
